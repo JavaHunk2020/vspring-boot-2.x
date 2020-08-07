@@ -3,24 +3,26 @@ package com.rab3tech.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rab3tech.controller.dto.ProfileDTO;
-import com.rab3tech.dao.MagicDaoRepository;
-import com.rab3tech.dao.ProfileDao;
+import com.rab3tech.dao.ProfileDaoRepository;
 import com.rab3tech.dao.entity.ProfileEntity;
 
 @Service
+@Transactional //for transaction
 public class ProfileServiceImpl implements ProfileService{
 	
-	@Autowired
-	private ProfileDao profileDao;
+/*	@Autowired
+	private ProfileDao profileDao;*/
 	
 	@Autowired
-	private MagicDaoRepository daoRepository;
+	private ProfileDaoRepository daoRepository;
 
 	@Override
 	public void show() {
@@ -28,24 +30,20 @@ public class ProfileServiceImpl implements ProfileService{
 	}
 
 	@Override
+	@Deprecated
 	public String updateSignup(ProfileDTO profileDTO) {
-		ProfileEntity entity=new ProfileEntity();
-		BeanUtils.copyProperties(profileDTO, entity);
-		String result=profileDao.updateSignup(entity);
-		return result;
+		return null;
 	}
 
 	@Override
+	@Deprecated
 	public String createSignup(ProfileDTO profileDTO) {
-		ProfileEntity entity=new ProfileEntity();
-		BeanUtils.copyProperties(profileDTO, entity);
-		String result=profileDao.createSignup(entity);
-		return result;
+		return null;
 	}
 
 	@Override
 	public List<ProfileDTO> sortProfiles(String sort) {
-		List<ProfileEntity> list=profileDao.sortProfiles(sort);
+		List<ProfileEntity> list=daoRepository.findAllByOrderByEmailAsc();
 		List<ProfileDTO> profileDTOs= convertList(list);
 		return profileDTOs;
 	}
@@ -62,49 +60,55 @@ public class ProfileServiceImpl implements ProfileService{
 
 	@Override
 	public List<String> findAllQualification() {
-		return profileDao.findAllQualification();
+		return daoRepository.findMyQualification();
 	}
 
 	@Override
 	public List<ProfileDTO> filterProfiles(String filterText) {
-		List<ProfileEntity> list=profileDao.filterProfiles(filterText);
+		List<ProfileEntity> list=daoRepository.filterProfiles(filterText);
 		List<ProfileDTO> profileDTOs= convertList(list);
 		return profileDTOs;
 	}
 
 	@Override
 	public List<ProfileDTO> searchProfiles(String search) {
-		List<ProfileEntity> list=profileDao.searchProfiles(search);
-		List<ProfileDTO> profileDTOs= convertList(list);
-		return profileDTOs;
+		/*List<ProfileEntity> list=profileDao.searchProfiles(search);
+		List<ProfileDTO> profileDTOs= convertList(list);*/
+		return null;
 	}
 
 	@Override
 	public List<ProfileDTO> findAll() {
-		List<ProfileEntity> list=profileDao.findAll();
+		List<ProfileEntity> list=daoRepository.findAll();
 		List<ProfileDTO> profileDTOs= convertList(list);
 		return profileDTOs;
 	}
 
 	@Override
 	public ProfileDTO authUser(String pusername, String ppassword) {
-		ProfileEntity profileEntity=profileDao.authUser(pusername, ppassword);
-		ProfileDTO profileDTO=new ProfileDTO();
-		BeanUtils.copyProperties(profileEntity, profileDTO);
+		Optional<ProfileEntity> optional=daoRepository.findByUsernameAndPassword(pusername, ppassword);
+		return convertToDTO(optional);
+	}
+	
+	private ProfileDTO convertToDTO(Optional<ProfileEntity> optional) {
+		ProfileDTO profileDTO=null;
+		if(optional.isPresent()){
+			ProfileEntity profileEntity=optional.get();
+			profileDTO=new ProfileDTO();
+			BeanUtils.copyProperties(profileEntity, profileDTO);
+		}
 		return profileDTO;
 	}
 
 	@Override
 	public ProfileDTO findByEmail(String pemail) {
-		ProfileEntity profileEntity=profileDao.findByEmail(pemail);
-		ProfileDTO profileDTO=new ProfileDTO();
-		BeanUtils.copyProperties(profileEntity, profileDTO);
-		return profileDTO;
+		Optional<ProfileEntity> optional=daoRepository.findByEmail(pemail);
+		return convertToDTO(optional);
 	}
 
 	@Override
 	public ProfileDTO findByUsername(String pusername) {
-		ProfileEntity profileEntity=profileDao.findByUsername(pusername);
+		ProfileEntity profileEntity=daoRepository.findById(pusername).get();
 		ProfileDTO profileDTO=new ProfileDTO();
 		BeanUtils.copyProperties(profileEntity, profileDTO);
 		return profileDTO;
@@ -112,12 +116,13 @@ public class ProfileServiceImpl implements ProfileService{
 
 	@Override
 	public void deleteByUsername(String pusername) {
-		profileDao.deleteByUsername(pusername);
+		daoRepository.deleteById(pusername);
 	}
 
 	@Override
 	public String findPasswordByUsernameOrEmail(String pusernameEmail) {
-		return 	profileDao.findPasswordByUsernameOrEmail(pusernameEmail);
+		ProfileEntity entity=daoRepository.findByUsernameOrEmail(pusernameEmail, pusernameEmail);
+		return entity.getPassword();
 	}
 
 	@Override
@@ -140,18 +145,19 @@ public class ProfileServiceImpl implements ProfileService{
 	}
 
 	@Override
+	@Deprecated
 	public List<ProfileDTO> findAllWithPhoto() {
-		//List<ProfileEntity> list=daoRepository.findAll();
-		List<ProfileEntity> list=profileDao.findAllWithPhoto();
-		List<ProfileDTO> profileDTOs= convertList(list);
-		return profileDTOs;
+		return null;
 	}
 
 	@Override
 	public String updatePhoto(ProfileDTO profileDTO) {
-		ProfileEntity entity=new ProfileEntity();
-		BeanUtils.copyProperties(profileDTO, entity);
-		return profileDao.updatePhoto(entity);
+		ProfileEntity profileEntity=daoRepository.findById(profileDTO.getUsername()).get();
+		try {
+			profileEntity.setTphoto(profileDTO.getFile().getBytes());
+		} catch (IOException e) {
+		}
+		return "success";
 	}
 
 }
