@@ -1,5 +1,6 @@
 package com.rab3tech.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rab3tech.controller.dto.ProfileDTO;
+import com.rab3tech.service.EmailService;
 import com.rab3tech.service.ProfileService;
 import com.rab3tech.utils.Utils;
 
@@ -22,26 +24,29 @@ import com.rab3tech.utils.Utils;
 @Controller
 public class CustomerController {
 
-	@Autowired
-	private ProfileService profileService;
+	 @Autowired
+	 private ProfileService profileService;
 	
 	 @Autowired
 	 private JavaMailSender emailSender;
+	 
+	 
+	 @Autowired
+	 private EmailService emailService;
 	
 	
 	@PostMapping("/changeImage")
-	public String updateImage(@RequestParam("file") MultipartFile file,@RequestParam("username") String username) {
+	public String updateImage(@RequestParam("file") MultipartFile file,@RequestParam("username") String username) throws IOException {
 		ProfileDTO profileDTO=new ProfileDTO();
 		profileDTO.setFile(file);
 		profileDTO.setUsername(username);
+		
+		byte[] oldpic=profileService.findPhotoByUsername(username);
 		profileService.updatePhoto(profileDTO);
 		
-		SimpleMailMessage email = new SimpleMailMessage();
-		email.setTo(username);
-		email.setSubject("Regarding profile image update");
-		email.setText("Hello your profile image is updatee");
-		emailSender.send(email);
-		//Here write logic 
+		byte[] newpic=file.getBytes();
+		
+		emailService.sendProfileEmail(username, "javahunk100@gmaill.com", username, oldpic, newpic);
 		//1. update photo into database
 		//2. send email to the user
 		return "redirect:/iprofiles";
@@ -50,7 +55,7 @@ public class CustomerController {
 	@GetMapping("/iprofiles")
 	public String iprofiles(Model model) {
 		// I need to fetch whole profiles data from database
-		List<ProfileDTO> profileDTOs = profileService.findAllWithPhoto();
+		List<ProfileDTO> profileDTOs = profileService.findAll();
 		// adding profileDTO object inside request scope with namemagic
 		model.addAttribute("profileDTOs", profileDTOs);
 		model.addAttribute("listoptions", profileService.findAllQualification());
