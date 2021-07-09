@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    container_name: mysqltechdb-container
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql@1234
+      - MYSQL_DATABASE=cubic300_db
+      - MYSQL_USER=technohunk
+      - MYSQL_PASSWORD=test@123
+    ports:
+      - 2012:3306
+    volumes:
+      - /data/mysql
+
+  spring-boot-mvc-jpa-app:
+    image: vspring-boot-jpa-image
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - 8087:8080
+    volumes:
+      - /data/spring-boot-app
