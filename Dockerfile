@@ -10,4 +10,4 @@ RUN mvn clean install -DskipTests
 EXPOSE 8080
 LABEL maintainer="technohunk100@gmail.com"
 #ADD ./target/spring-boot-data-jpa-example-0.0.1-SNAPSHOT.jar spring-boot-data-jpa-example-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/app/target/spring-boot-data-jpa-example-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","/app/target/vspring-boot-0.0.1-SNAPSHOT.jar"]
