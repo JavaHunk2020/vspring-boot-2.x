@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rab3tech.rest.vo.CompanyVO;
@@ -20,7 +21,7 @@ import com.rab3tech.rest.vo.EmployeVO;
 public class CompanyController {
 	
 	@PostMapping("/wearsafe")
-	public void webhook(String customer) {
+	public void webhook(@RequestBody String customer) {
 		System.out.println("*****************************");
 		System.out.println(customer);
 		System.out.println(customer);
@@ -30,8 +31,13 @@ public class CompanyController {
 		System.out.println("*****************************");
 	}
 	
+	@GetMapping("/hello")
+	public String helloWebhook(@RequestParam String name) {
+		return "Happy Wearsafe!";
+	}
+	
 	@GetMapping("/wearsafe")
-	public void getWebhook(String customer) {
+	public void getWebhook(@RequestBody String customer) {
 		System.out.println("*****************************");
 		System.out.println(customer);
 		System.out.println(customer);
