@@ -19,6 +19,28 @@ import com.rab3tech.rest.vo.EmployeVO;
 @RequestMapping("/api2")
 public class CompanyController {
 	
+	@PostMapping("/wearsafe")
+	public void webhook(String customer) {
+		System.out.println("*****************************");
+		System.out.println(customer);
+		System.out.println(customer);
+		System.out.println(customer);
+		System.out.println(customer);
+		System.out.println(customer);
+		System.out.println("*****************************");
+	}
+	
+	@GetMapping("/wearsafe")
+	public void getWebhook(String customer) {
+		System.out.println("*****************************");
+		System.out.println(customer);
+		System.out.println(customer);
+		System.out.println(customer);
+		System.out.println(customer);
+		System.out.println(customer);
+		System.out.println("*****************************");
+	}
+	
 	
 	@GetMapping("/companies/{cid}/employees")
 	public List<EmployeVO> findCompanyEmployees(@PathVariable int cid){
@@ -81,3 +103,4 @@ public class CompanyController {
 	}
 
 }
+
