@@ -13,20 +13,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.rab3tech.rest.vo.CompanyVO;
 import com.rab3tech.rest.vo.EmployeVO;
+import com.wearsafe.Content;
+import com.wearsafe.Root;
+import com.wearsafe.SubscriptionItem;
 
 @RestController
 @RequestMapping("/api2")
 public class CompanyController {
 	
 	@PostMapping("/wearsafe")
-	public void webhook(@RequestBody String customer) {
+	public void webhook(@RequestBody String customer) throws JsonMappingException, JsonProcessingException {
+		
+		int subscriptionCount=0;
+		boolean businessConsoleAddOn=false;
+		boolean businessMonitoringAddOn=false;
+		int personId=0;
+		Root root=new JsonMapper().readValue(customer,Root.class);
+		Content content=root.content;
+		if(content.getSubscription()!=null) {
+			ArrayList<SubscriptionItem> subscriptionItems=content.getSubscription().getSubscription_items();
+			for(SubscriptionItem subscriptionItem:subscriptionItems ) {
+				if("plan".equalsIgnoreCase(subscriptionItem.getItem_type())) {
+					subscriptionCount=subscriptionItem.getQuantity();
+				}else if("addon".equalsIgnoreCase(subscriptionItem.getItem_type()) && "Business-Professional-Monitoring-USD-Monthly".equalsIgnoreCase(subscriptionItem.getItem_price_id())) {
+					businessMonitoringAddOn=true;
+				} else if("addon".equalsIgnoreCase(subscriptionItem.getItem_type()) && "Business-Console-USD-Monthly".equalsIgnoreCase(subscriptionItem.getItem_price_id())) {
+					businessConsoleAddOn=true;
+				}
+			}
+		}
+		if(content.getCustomer()!=null) {
+			personId=content.getCustomer().getCf_person_id();
+		}
+		
+		System.out.println("subscriptionCount = "+subscriptionCount);
+		System.out.println("businessMonitoringAddOn = "+businessMonitoringAddOn);
+		System.out.println("businessConsoleAddOn = "+businessConsoleAddOn);
+		System.out.println("personId = "+personId);
+		
 		System.out.println("*****************************");
-		System.out.println(customer);
-		System.out.println(customer);
-		System.out.println(customer);
-		System.out.println(customer);
 		System.out.println(customer);
 		System.out.println("*****************************");
 	}
