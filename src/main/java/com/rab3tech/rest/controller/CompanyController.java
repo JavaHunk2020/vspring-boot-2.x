@@ -37,6 +37,7 @@ public class CompanyController {
 		boolean businessMonitoringAddOn=false;
 		String subsubsciptionId="";
 		int personId=0;
+		int orgUnitId=0;
 		Root root=new JsonMapper().readValue(customer,Root.class);
 		Content content=root.content;
 		if(content.getSubscription()!=null) {
@@ -54,12 +55,15 @@ public class CompanyController {
 		}
 		if(content.getCustomer()!=null) {
 			personId=content.getCustomer().getCf_person_id();
+			orgUnitId=content.getCustomer().getCf_org_unit_id();
 		}
 		
 		System.out.println("subscriptionCount = "+subscriptionCount);
 		System.out.println("businessMonitoringAddOn = "+businessMonitoringAddOn);
 		System.out.println("businessConsoleAddOn = "+businessConsoleAddOn);
 		System.out.println("personId = "+personId);
+		System.out.println("orgUnitId = "+orgUnitId);
+		System.out.println("subsubsciptionId = "+subsubsciptionId);
 		System.out.println("subsubsciptionId = "+subsubsciptionId);
 		
 		System.out.println("*****************************");

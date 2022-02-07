@@ -33,6 +33,16 @@ public class Customer {
 	public String cf_api_key;
 	public String cf_customer_route;
 	public int cf_person_id;
+	public int cf_org_unit_id;
+	
+
+	public int getCf_org_unit_id() {
+		return cf_org_unit_id;
+	}
+
+	public void setCf_org_unit_id(int cf_org_unit_id) {
+		this.cf_org_unit_id = cf_org_unit_id;
+	}
 
 	public String getId() {
 		return id;
