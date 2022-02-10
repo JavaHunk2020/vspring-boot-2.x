@@ -47,20 +47,20 @@ public class CompanyController {
 		Content content=root.content;
 		if(content.getSubscription()!=null) {
 			subsubsciptionId=content.getSubscription().getId();
-			ArrayList<SubscriptionItem> subscriptionItems=content.getSubscription().getSubscription_items();
+			List<SubscriptionItem> subscriptionItems=content.getSubscription().getSubscriptionItems();
 			for(SubscriptionItem subscriptionItem:subscriptionItems ) {
-				if("plan".equalsIgnoreCase(subscriptionItem.getItem_type())) {
+				if("plan".equalsIgnoreCase(subscriptionItem.getItemType())) {
 					subscriptionCount=subscriptionItem.getQuantity();
-				}else if("addon".equalsIgnoreCase(subscriptionItem.getItem_type()) && "Business-Professional-Monitoring-USD-Monthly".equalsIgnoreCase(subscriptionItem.getItem_price_id())) {
+				}else if("addon".equalsIgnoreCase(subscriptionItem.getItemType()) && "Business-Professional-Monitoring-USD-Monthly".equalsIgnoreCase(subscriptionItem.getItemPriceId())) {
 					businessMonitoringAddOn=true;
-				} else if("addon".equalsIgnoreCase(subscriptionItem.getItem_type()) && "Business-Console-USD-Monthly".equalsIgnoreCase(subscriptionItem.getItem_price_id())) {
+				} else if("addon".equalsIgnoreCase(subscriptionItem.getItemType()) && "Business-Console-USD-Monthly".equalsIgnoreCase(subscriptionItem.getItemPriceId())) {
 					businessConsoleAddOn=true;
 				}
 			}
 		}
 		if(content.getCustomer()!=null) {
-			personId=content.getCustomer().getCf_person_id();
-			orgUnitId=content.getCustomer().getCf_org_unit_id();
+			personId=content.getCustomer().getCfPersonId();
+			orgUnitId=content.getCustomer().getCfOrgUnitId();
 		}
 		
 		System.out.println("subscriptionCount = "+subscriptionCount);

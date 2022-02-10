@@ -1,5 +1,4 @@
 
-
 package com.wearsafe;
 
 import java.util.HashMap;
@@ -16,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "first_name",
     "last_name",
+    "company",
     "line1",
     "line2",
     "state",
@@ -24,12 +24,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "object"
 })
 @Generated("jsonschema2pojo")
-public class ShippingAddress {
+public class BillingAddress__1 {
 
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
     private String lastName;
+    @JsonProperty("company")
+    private String company;
     @JsonProperty("line1")
     private String line1;
     @JsonProperty("line2")
@@ -63,6 +65,16 @@ public class ShippingAddress {
     @JsonProperty("last_name")
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @JsonProperty("company")
+    public String getCompany() {
+        return company;
+    }
+
+    @JsonProperty("company")
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     @JsonProperty("line1")

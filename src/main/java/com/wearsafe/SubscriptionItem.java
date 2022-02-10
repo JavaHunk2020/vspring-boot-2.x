@@ -1,54 +1,138 @@
-package com.wearsafe; 
-public class SubscriptionItem{
-    public String item_price_id;
-    public String item_type;
-    public int quantity;
-    public int unit_price;
-    public int amount;
-    public int free_quantity;
-    public String object;
-	public String getItem_price_id() {
-		return item_price_id;
-	}
-	public void setItem_price_id(String item_price_id) {
-		this.item_price_id = item_price_id;
-	}
-	public String getItem_type() {
-		return item_type;
-	}
-	public void setItem_type(String item_type) {
-		this.item_type = item_type;
-	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	public int getUnit_price() {
-		return unit_price;
-	}
-	public void setUnit_price(int unit_price) {
-		this.unit_price = unit_price;
-	}
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-	public int getFree_quantity() {
-		return free_quantity;
-	}
-	public void setFree_quantity(int free_quantity) {
-		this.free_quantity = free_quantity;
-	}
-	public String getObject() {
-		return object;
-	}
-	public void setObject(String object) {
-		this.object = object;
-	}
-    
-    
+
+
+package com.wearsafe;
+
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "item_price_id",
+    "item_type",
+    "quantity",
+    "unit_price",
+    "amount",
+    "free_quantity",
+    "billing_cycles",
+    "object"
+})
+@Generated("jsonschema2pojo")
+public class SubscriptionItem {
+
+    @JsonProperty("item_price_id")
+    private String itemPriceId;
+    @JsonProperty("item_type")
+    private String itemType;
+    @JsonProperty("quantity")
+    private Integer quantity;
+    @JsonProperty("unit_price")
+    private Integer unitPrice;
+    @JsonProperty("amount")
+    private Integer amount;
+    @JsonProperty("free_quantity")
+    private Integer freeQuantity;
+    @JsonProperty("billing_cycles")
+    private Integer billingCycles;
+    @JsonProperty("object")
+    private String object;
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("item_price_id")
+    public String getItemPriceId() {
+        return itemPriceId;
+    }
+
+    @JsonProperty("item_price_id")
+    public void setItemPriceId(String itemPriceId) {
+        this.itemPriceId = itemPriceId;
+    }
+
+    @JsonProperty("item_type")
+    public String getItemType() {
+        return itemType;
+    }
+
+    @JsonProperty("item_type")
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
+
+    @JsonProperty("quantity")
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    @JsonProperty("quantity")
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    @JsonProperty("unit_price")
+    public Integer getUnitPrice() {
+        return unitPrice;
+    }
+
+    @JsonProperty("unit_price")
+    public void setUnitPrice(Integer unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    @JsonProperty("amount")
+    public Integer getAmount() {
+        return amount;
+    }
+
+    @JsonProperty("amount")
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    @JsonProperty("free_quantity")
+    public Integer getFreeQuantity() {
+        return freeQuantity;
+    }
+
+    @JsonProperty("free_quantity")
+    public void setFreeQuantity(Integer freeQuantity) {
+        this.freeQuantity = freeQuantity;
+    }
+
+    @JsonProperty("billing_cycles")
+    public Integer getBillingCycles() {
+        return billingCycles;
+    }
+
+    @JsonProperty("billing_cycles")
+    public void setBillingCycles(Integer billingCycles) {
+        this.billingCycles = billingCycles;
+    }
+
+    @JsonProperty("object")
+    public String getObject() {
+        return object;
+    }
+
+    @JsonProperty("object")
+    public void setObject(String object) {
+        this.object = object;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }
