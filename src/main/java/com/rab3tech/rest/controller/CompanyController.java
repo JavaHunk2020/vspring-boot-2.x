@@ -32,6 +32,11 @@ public class CompanyController {
 	@PostMapping("/wearsafe")
 	public void webhook(@RequestBody String customer) throws JsonMappingException, JsonProcessingException {
 		
+		
+		System.out.println("*****************************");
+		System.out.println(customer);
+		System.out.println("*****************************");
+		
 		int subscriptionCount=0;
 		boolean businessConsoleAddOn=false;
 		boolean businessMonitoringAddOn=false;
