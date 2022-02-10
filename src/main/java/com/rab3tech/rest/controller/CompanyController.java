@@ -45,8 +45,10 @@ public class CompanyController {
 		int orgUnitId=0;
 		Root root=new JsonMapper().readValue(customer,Root.class);
 		Content content=root.content;
+		int billingCycles=0;
 		if(content.getSubscription()!=null) {
 			subsubsciptionId=content.getSubscription().getId();
+			billingCycles=content.getSubscription().getRemainingBillingCycles();
 			List<SubscriptionItem> subscriptionItems=content.getSubscription().getSubscriptionItems();
 			for(SubscriptionItem subscriptionItem:subscriptionItems ) {
 				if("plan".equalsIgnoreCase(subscriptionItem.getItemType())) {
@@ -66,6 +68,8 @@ public class CompanyController {
 		System.out.println("subscriptionCount = "+subscriptionCount);
 		System.out.println("businessMonitoringAddOn = "+businessMonitoringAddOn);
 		System.out.println("businessConsoleAddOn = "+businessConsoleAddOn);
+		System.out.println("billingCycles = "+billingCycles);
+		
 		System.out.println("personId = "+personId);
 		System.out.println("orgUnitId = "+orgUnitId);
 		System.out.println("subsubsciptionId = "+subsubsciptionId);
