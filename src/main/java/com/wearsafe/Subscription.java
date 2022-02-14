@@ -1,5 +1,4 @@
 
-
 package com.wearsafe;
 
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "billing_period",
     "billing_period_unit",
-    "remaining_billing_cycles",
     "customer_id",
     "status",
     "current_term_start",
@@ -49,8 +47,6 @@ public class Subscription {
     private Integer billingPeriod;
     @JsonProperty("billing_period_unit")
     private String billingPeriodUnit;
-    @JsonProperty("remaining_billing_cycles")
-    private Integer remainingBillingCycles;
     @JsonProperty("customer_id")
     private String customerId;
     @JsonProperty("status")
@@ -122,16 +118,6 @@ public class Subscription {
     @JsonProperty("billing_period_unit")
     public void setBillingPeriodUnit(String billingPeriodUnit) {
         this.billingPeriodUnit = billingPeriodUnit;
-    }
-
-    @JsonProperty("remaining_billing_cycles")
-    public Integer getRemainingBillingCycles() {
-        return remainingBillingCycles;
-    }
-
-    @JsonProperty("remaining_billing_cycles")
-    public void setRemainingBillingCycles(Integer remainingBillingCycles) {
-        this.remainingBillingCycles = remainingBillingCycles;
     }
 
     @JsonProperty("customer_id")

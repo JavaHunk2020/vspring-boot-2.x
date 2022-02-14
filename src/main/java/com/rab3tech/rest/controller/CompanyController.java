@@ -48,7 +48,7 @@ public class CompanyController {
 		int billingCycles=0;
 		if(content.getSubscription()!=null) {
 			subsubsciptionId=content.getSubscription().getId();
-			billingCycles=content.getSubscription().getRemainingBillingCycles();
+			billingCycles=content.getSubscription().getBillingPeriod();
 			List<SubscriptionItem> subscriptionItems=content.getSubscription().getSubscriptionItems();
 			for(SubscriptionItem subscriptionItem:subscriptionItems ) {
 				if("plan".equalsIgnoreCase(subscriptionItem.getItemType())) {

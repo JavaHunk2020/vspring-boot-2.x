@@ -1,5 +1,4 @@
 
-
 package com.wearsafe;
 
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "unit_price",
     "amount",
     "free_quantity",
-    "billing_cycles",
     "object"
 })
 @Generated("jsonschema2pojo")
@@ -38,8 +36,6 @@ public class SubscriptionItem {
     private Integer amount;
     @JsonProperty("free_quantity")
     private Integer freeQuantity;
-    @JsonProperty("billing_cycles")
-    private Integer billingCycles;
     @JsonProperty("object")
     private String object;
     @JsonIgnore
@@ -103,16 +99,6 @@ public class SubscriptionItem {
     @JsonProperty("free_quantity")
     public void setFreeQuantity(Integer freeQuantity) {
         this.freeQuantity = freeQuantity;
-    }
-
-    @JsonProperty("billing_cycles")
-    public Integer getBillingCycles() {
-        return billingCycles;
-    }
-
-    @JsonProperty("billing_cycles")
-    public void setBillingCycles(Integer billingCycles) {
-        this.billingCycles = billingCycles;
     }
 
     @JsonProperty("object")

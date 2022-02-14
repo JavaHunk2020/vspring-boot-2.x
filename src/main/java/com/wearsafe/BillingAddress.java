@@ -1,5 +1,4 @@
 
-
 package com.wearsafe;
 
 import java.util.HashMap;
