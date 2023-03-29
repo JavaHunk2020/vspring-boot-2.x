@@ -22,6 +22,6 @@ services:
     depends_on:
       - db
     ports:
-      - 103.86.177.219:8080:8080
+      - http://68.178.167.36:7500:7500
     volumes:
       - /data/spring-boot-app
