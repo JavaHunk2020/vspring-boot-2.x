@@ -46,7 +46,11 @@ public class AuthController {
 		// This code invalidate the session
 		if (session != null)
 			session.invalidate();
-
+                System.out.println("####################OEEUEU#############");
+		System.out.println("####################OEEUEU#############");
+		System.out.println("####################OEEUEU#############");
+		System.out.println("####################OEEUEU#############");
+		System.out.println("####################OEEUEU#############");
 		model.addAttribute("hmmmm", "You have logged out successfully!!");
 		return "login";
 	}
