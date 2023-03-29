@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.rab3tech.controller.dto.ProfileDTO;
 import com.rab3tech.service.ProfileService;
 
+/**
+* @Author : nagendra.kumar@gmail.com
+*/
 @Controller // @Repository , @Service ,@Component
 public class AuthController {
 
