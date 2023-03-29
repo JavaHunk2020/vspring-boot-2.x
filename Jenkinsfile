@@ -15,6 +15,13 @@ pipeline {
         sh 'docker system prune -a --volumes -f'
       }
     }
+    
+     stage('Stoping container') {
+      steps {
+        sh 'docker compose down --remove-orphans -v'
+        sh 'docker compose ps'
+      }
+    }
     stage('Start container') {
       steps {
         sh 'docker compose up -d --no-color --wait'
@@ -24,8 +31,7 @@ pipeline {
   }
   post {
     always {
-      sh 'docker compose down --remove-orphans -v'
-      sh 'docker compose ps'
+        sh 'docker compose ps'
     }
   }
 }
